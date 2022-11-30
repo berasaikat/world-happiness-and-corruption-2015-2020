@@ -2,21 +2,10 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 library(gridExtra)
-library(viridis)
 library(grid)
 library(scales)
 library(shinythemes)
-first = function(x) {data %>%
-    arrange(desc(gdp_per_capita)) %>%
-    filter(Year == x) %>%
-    slice(1:10) %>%
-    ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
-    geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
-    geom_line(col = 'black') +
-    geom_smooth(col = 'purple') +
-    theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
-    labs(title = paste("Year", x, sep = " "), x = "Gdp per Capita", y = "Happiness Score")}
-
+library(viridis)
 
 ui = dashboardPage(skin = 'purple',
   dashboardHeader(title="Saikat Bera, MDS202228, saikatb@cmi.ac.in", titleWidth = 450),
@@ -451,43 +440,162 @@ server = function(input, output) {
   observeEvent(input$go4,
                if(input$year == 'All'){
                  output$chart3 = renderPlot(
-                   grid.arrange(first(2015), first(2016), first(2017),
-                                first(2018), first(2019), first(2020), ncol = 3,
+                   grid.arrange(data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2015) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2015", x = "Gdp per Capita", y = "Happiness Score"),
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2016) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2016", x = "Gdp per Capita", y = "Happiness Score"),
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2017) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2017", x = "Gdp per Capita", y = "Happiness Score"),
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2018) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2018", x = "Gdp per Capita", y = "Happiness Score"),
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2019) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2019", x = "Gdp per Capita", y = "Happiness Score"),
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2020) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2020", x = "Gdp per Capita", y = "Happiness Score"),
+                   
+                    ncol = 3,
                                 top = textGrob("Relationship between Gdp per Capita And Happiness Score"))
                    
                  )
                }
                else if(input$year == '2015'){
                  output$chart3 = renderPlot(
-                   first(2015)
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2015) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2015", x = "Gdp per Capita", y = "Happiness Score")
+                   
                  )
                }
                else if(input$year == '2016'){
                  output$chart3 = renderPlot(
-                   first(2016)
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2016) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2016", x = "Gdp per Capita", y = "Happiness Score")
+                   
                  )
                }
                else if(input$year == '2017'){
                  output$chart3 = renderPlot(
-                   first(2017)
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2017) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2017", x = "Gdp per Capita", y = "Happiness Score")
+                   
                  )
                }
                else if(input$year == '2018'){
                  output$chart3 = renderPlot(
-                   first(2018)
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2018) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2018", x = "Gdp per Capita", y = "Happiness Score")
+                   
                  )
                }
                else if(input$year == '2019'){
                  output$chart3 = renderPlot(
-                   first(2019)
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2019) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2019", x = "Gdp per Capita", y = "Happiness Score")
+                   
                  )
                }
                else if(input$year == '2020'){
                  output$chart3 = renderPlot(
-                   first(2020)
+                   data %>%
+                     arrange(desc(gdp_per_capita)) %>%
+                     filter(Year == 2020) %>%
+                     slice(1:10) %>%
+                     ggplot(aes(gdp_per_capita, happiness_score, fill = gdp_per_capita)) +
+                     geom_point(aes(size = gdp_per_capita, col = viridis(10))) +
+                     geom_line(col = 'black') +
+                     geom_smooth(col = 'purple') +
+                     theme(legend.position = "none", plot.title = element_text(hjust = 0.5, size = 8)) +
+                     labs(title = "Year 2020", x = "Gdp per Capita", y = "Happiness Score")
                  )
                })
-  output$write3 = renderText(" In this figure we see relationship between GDP per capita and Happiness score for top top 10
+  output$write3 = renderText(" In this figure we see relationship between GDP per capita and Happiness score for top 10
 countries with most GDP per capita each year for selected Year(s)")
   observeEvent(input$go5,
                if(input$column2 == "All"){
@@ -769,7 +877,7 @@ countries with most absolute change in that variable")
           World Poll (GWP). ( Scale : 0-10)", "Gross Domestic Product (GDP) per capita shows a country’s GDP divided by
           its total population.", "The extent to which Family contributes to the calculation of the Happiness Score.", "The extent to which Health(Life Expectancy) contributes to the calculation of the Happiness
           Score.", "The extent to which Freedom contributes to the calculation of the Happiness Score.", "A numerical value calculated based on poll participants’ perceptions of generosity in
-          their country.", "The extent to which Perception of Corruption contributes to Happiness Score.", "A score based on a hypothetical comparison to the world’s saddest country.", "",
+          their country.", "The extent to which Perception of Corruption contributes to Happiness Score.", "A score based on a hypothetical comparison to the world’s saddest country.", "There are data on 6 continents, i.e., Africa, Asia, Australia, Europe, North America and South America",
           "The data is collected across 6 years, i.e., 2015-2020.", "Social support is the perception and actuality that one is cared for, has assistance
           available from other people, and most popularly, that one is part of a supportive social network.", "Corruption perception index (CPI) is an index which ranks countries by their perceived
           levels of public sector corruption, as determined by expert assessments and opinion surveys.")
