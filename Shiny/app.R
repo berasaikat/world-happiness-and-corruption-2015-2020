@@ -22,14 +22,24 @@ ui = dashboardPage(skin = 'purple',
   dashboardHeader(title="Saikat Bera, MDS202228, saikatb@cmi.ac.in", titleWidth = 450),
   dashboardSidebar(
     sidebarMenu(
+      menuItem("Home",tabName = "menu5"),
       menuItem("Introduction",tabName = "menu1"),
       menuItem("Univariate Analysis",tabName = "menu2"),
       menuItem("Bivariate Analysis",tabName = "menu3"),      
-      menuItem("Conclusion",tabName = "menu4")
+      menuItem("Conclusion",tabName = "menu4"),
+      menuItem("References",tabName = "menu6")
     )
   ),
   dashboardBody(
     tabItems(
+      tabItem("menu5", fluidPage(
+        mainPanel(align="center",
+                  h2("World Happiness And Corruption 2015-2020"),
+                  h4("Or are we too corrupt to be happy?"),br(),
+                  tags$image(src = "https://storage.googleapis.com/kaggle-datasets-images/2537316/4307284/79fab2bbe71f5329d401bbdac1bf6e7a/dataset-cover.jpg?t=2022-10-10-11-29-43",height="400px",width="600px",
+                             style="display: block; margin-left: auto; margin-right: auto;"),br(),br() 
+        )
+      )),
       tabItem("menu2",
               tabsetPanel(
                 tabPanel("Change from 2015-2020", fluidPage(
@@ -66,6 +76,16 @@ ui = dashboardPage(skin = 'purple',
                 tabPanel("Line Plots", fluidPage(
                   sidebarLayout(
                     sidebarPanel(
+                      selectInput("cavar", "Choose a Categorical Variable", choices = c("Year", "continent")),
+                      selectInput("nuvar", "Choose Numeric Variable", choices = c('happiness_score', 'gdp_per_capita', 'family', 'health', 'freedom', 'generosity', 'government_trust', 'dystopia_residual')),
+                      actionButton("go7", "apply")
+                    ),
+                    mainPanel(plotOutput("chart6"), textOutput("write6"))
+                  )
+                )),
+                tabPanel("Year Wise Study", fluidPage(
+                  sidebarLayout(
+                    sidebarPanel(
                       selectInput("year", "Choose a Year", choices = c('All', '2015', '2016', '2017', '2018', '2019', '2020')),
                       actionButton("go4", "apply")
                     ),
@@ -84,7 +104,7 @@ ui = dashboardPage(skin = 'purple',
                   )
                 ))
               )),
-      tabItem("menu1", h1("World Happiness And Corruption 2015-2020"),fluidPage(theme = shinytheme('yeti'),
+      tabItem("menu1", fluidPage(theme = shinytheme('yeti'),
         tags$b(tags$h2("Abstract :-")),
         tags$ul(tags$h4("Both corruption and happiness are of concern to academics, governments, and policymakers. The World
 Bank and UNDP define corruption as “the misuse or the abuse of public office for private gain”. World
@@ -100,7 +120,6 @@ happiness rank would be our primary challenge.")),
         tags$ul(tags$h4("World happiness is correlated with government corruption. In particular they have
 a strong negative correlation. That means high government corruption results in lower happiness in their
 citizens.")),
-        tags$b(tags$h3("Our Data :-"), tags$a(href = "https://www.kaggle.com/datasets/eliasturk/world-happiness-based-on-cpi-20152020", "Link to the Data Set")),
         tags$b(tags$h2("Data-Set Description :-")),
         tags$ul(tags$h4("ELIAS TURK preprocessed and aggregated all valid data for countries with
                        existent data from the year 2015 to 2020 using Pandas and he added the corruption perception index taken
@@ -111,13 +130,48 @@ citizens.")),
         tags$b(tags$h2("Variables of Interest :-")),
         tableOutput("table"),
         tags$h4(tags$em("Note That :-"), "The missing data is filled with 0’s.")
+      )),
+      tabItem("menu4",h1("Summary of Graphical Analysis :-"),fluidPage(
+        tags$b(tags$h4("From all the univarite and multivariate plots and graphs I can draw a few conclusions:")),
+        tags$ul(tags$h4("1) We see that for the continent of Africa the Happiness
+Scores are concentrated in lower end of the spectrum, at the same time European countries have Happiness
+scores at the higher end of the scale.")), 
+        tags$ul(tags$h4("2) We see the same thing that over the years, the mean
+happiness score for European and North American countries is much higher than for Asian or African
+countries.")),
+        tags$ul(tags$h4("3) We see that in countries like Afghanistan Happiness score reduces from 2015 to
+2020 whereas countries like Benin and Guinea saw significant improvement in Happiness score from 2015
+to 2020.")),
+        tags$ul(tags$h4("4) We see Happiness score and GDP per capita have an almost linear relationship, and
+Happiness score and Government trust have a polynomial relationship with some outliers present.")),
+        tags$ul(tags$h4("5) We see government trust is declining in countries like Turkmanistan, Baharen and increasing in countries like Norway, Poland")),
+        tags$ul(tags$h4("6) Mean GDP per capita is much higher for Australia, Europe and North America than other continents.")),
+        tags$ul(tags$h4("7) Health indices are also significantly higher for Europe and Australia than of Africa.")),
+        tags$ul(tags$h4("8) From 2015 to 2020 dystopia residual decreases significantly for India.")),
+        tags$ul(tags$h4("9) Over the years mean happiness score of Asia reamins stable compared to other continents.")),
+        tags$ul(tags$h4("10) GDP per capita and freedom is not as related as we initaially thought.")),
+        tags$b(tags$h2("Shortcomings:-")),
+        tags$ul(tags$h4("1. Happiness Score calculations are not perfect.")),
+        tags$ul(tags$h4("2. There is a significant amount of data missing.")),
+        tags$ul(tags$h4("3. These few variables are not enough to calculate the complexity of the World Happiness.")),
+        tags$ul(tags$h4("4. Lastly, I want to mention that I lack the domain knowledge and experience to fully understand the multilayered situation."))
+        
+        
+      )),
+      tabItem("menu6", fluidPage(
+        tags$b(tags$h2("Acknowledgement :-")),
+        tags$ul(tags$h4("I would like to convey my heartfelt gratitude to my Professor Dr.", tags$a(href = "https://www.cmi.ac.in/~sourish/index.html", "Sourish Das"), "for his tremendous support and assistance in the completion of my project. It was a great learning experience.")),
+        tags$b(tags$h3("Our Data :-"), tags$a(href = "https://www.kaggle.com/datasets/eliasturk/world-happiness-based-on-cpi-20152020", "Link to the Data Set")),
+        tags$b(tags$h2("My Contact Info :-")),
+        tags$ul(tags$h4("Email id:- saikatb@cmi.ac.in")),
+        tags$ul(tags$h4("Github :-", tags$a(href = "https://github.com/berasaikat", "berasaikat")))
       ))
   )
 )
 )
 
 server = function(input, output) {
-  data = read.csv("E:\\Coding\\Sourish Das\\Visualisation Project\\Data\\WorldHappiness_Corruption_2015_2020.csv")
+  data = read.csv("Data/WorldHappiness_Corruption_2015_2020.csv")
   
   observeEvent(input$go1,
                if(input$column1 == "All"){
@@ -152,10 +206,10 @@ server = function(input, output) {
                              legend.text = element_text(size=8),
                              plot.title = element_text(hjust = 0.5),
                              plot.subtitle = element_text(hjust = 0.5)) +
-                       labs(title = "Histogram Of Happiness Score \n(Grouped By Continent)",
-                            x = "Happiness Score", y = "Count", fill = "Continent")
+                       labs(title = "Histogram Of gdp_per_capita \n(Grouped By Continent)",
+                            x = "gdp_per_capita", y = "Count", fill = "Continent")
                    )
-                   output$write1 = renderText("Agreegated histogram of Happiness Score with different Continent indexed by different color")
+                   output$write1 = renderText("Agreegated histogram of gdp_per_capita with different Continent indexed by different color")
                  }
                  else if(input$var1 == "happiness_score"){
                    output$chart1 = renderPlot(
@@ -188,10 +242,10 @@ server = function(input, output) {
                              legend.text = element_text(size=8),
                              plot.title = element_text(hjust = 0.5),
                              plot.subtitle = element_text(hjust = 0.5)) +
-                       labs(title = "Histogram Of Happiness Score \n(Grouped By Continent)",
-                            x = "Happiness Score", y = "Count", fill = "Continent")
+                       labs(title = "Histogram Of family \n(Grouped By Continent)",
+                            x = "family", y = "Count", fill = "Continent")
                    )
-                   output$write1 = renderText("Agreegated histogram of Happiness Score with different Continent indexed by different color")
+                   output$write1 = renderText("Agreegated histogram of family with different Continent indexed by different color")
                  }
                  else if(input$var1 == "health"){
                    output$chart1 = renderPlot(
@@ -206,10 +260,10 @@ server = function(input, output) {
                              legend.text = element_text(size=8),
                              plot.title = element_text(hjust = 0.5),
                              plot.subtitle = element_text(hjust = 0.5)) +
-                       labs(title = "Histogram Of Happiness Score \n(Grouped By Continent)",
-                            x = "Happiness Score", y = "Count", fill = "Continent")
+                       labs(title = "Histogram Of health \n(Grouped By Continent)",
+                            x = "health", y = "Count", fill = "Continent")
                    )
-                   output$write1 = renderText("Agreegated histogram of Happiness Score with different Continent indexed by different color")
+                   output$write1 = renderText("Agreegated histogram of health with different Continent indexed by different color")
                  }
                  else if(input$var1 == "freedom"){
                    output$chart1 = renderPlot(
@@ -224,10 +278,10 @@ server = function(input, output) {
                              legend.text = element_text(size=8),
                              plot.title = element_text(hjust = 0.5),
                              plot.subtitle = element_text(hjust = 0.5)) +
-                       labs(title = "Histogram Of Happiness Score \n(Grouped By Continent)",
-                            x = "Happiness Score", y = "Count", fill = "Continent")
+                       labs(title = "Histogram Of freedom \n(Grouped By Continent)",
+                            x = "freedom", y = "Count", fill = "Continent")
                    )
-                   output$write1 = renderText("Agreegated histogram of Happiness Score with different Continent indexed by different color")
+                   output$write1 = renderText("Agreegated histogram of freedom with different Continent indexed by different color")
                  }
                  else if(input$var1 == "generosity"){
                    output$chart1 = renderPlot(
@@ -242,10 +296,10 @@ server = function(input, output) {
                              legend.text = element_text(size=8),
                              plot.title = element_text(hjust = 0.5),
                              plot.subtitle = element_text(hjust = 0.5)) +
-                       labs(title = "Histogram Of Happiness Score \n(Grouped By Continent)",
-                            x = "Happiness Score", y = "Count", fill = "Continent")
+                       labs(title = "Histogram Of generosity \n(Grouped By Continent)",
+                            x = "generosity", y = "Count", fill = "Continent")
                    )
-                   output$write1 = renderText("Agreegated histogram of Happiness Score with different Continent indexed by different color")
+                   output$write1 = renderText("Agreegated histogram of generosity with different Continent indexed by different color")
                  }
                  else if(input$var1 == "government_trust"){
                    output$chart1 = renderPlot(
@@ -260,10 +314,10 @@ server = function(input, output) {
                              legend.text = element_text(size=8),
                              plot.title = element_text(hjust = 0.5),
                              plot.subtitle = element_text(hjust = 0.5)) +
-                       labs(title = "Histogram Of Happiness Score \n(Grouped By Continent)",
-                            x = "Happiness Score", y = "Count", fill = "Continent")
+                       labs(title = "Histogram Of government_trust \n(Grouped By Continent)",
+                            x = "government_trust", y = "Count", fill = "Continent")
                    )
-                   output$write1 = renderText("Agreegated histogram of Happiness Score with different Continent indexed by different color")
+                   output$write1 = renderText("Agreegated histogram of government_trust with different Continent indexed by different color")
                  }
                  else if(input$var1 == "dystopia_residual"){
                    output$chart1 = renderPlot(
@@ -278,10 +332,10 @@ server = function(input, output) {
                              legend.text = element_text(size=8),
                              plot.title = element_text(hjust = 0.5),
                              plot.subtitle = element_text(hjust = 0.5)) +
-                       labs(title = "Histogram Of Happiness Score \n(Grouped By Continent)",
-                            x = "Happiness Score", y = "Count", fill = "Continent")
+                       labs(title = "Histogram Of dystopia_residual \n(Grouped By Continent)",
+                            x = "dystopia_residual", y = "Count", fill = "Continent")
                    )
-                   output$write1 = renderText("Agreegated histogram of Happiness Score with different Continent indexed by different color")
+                   output$write1 = renderText("Agreegated histogram of dystopia_residual with different Continent indexed by different color")
                  }}
                else {if (input$var1 == 'happiness_score'){
                  output$chart1 = renderPlot(data %>%
@@ -305,9 +359,9 @@ server = function(input, output) {
                                                 theme(legend.position = "none",
                                                       plot.title = element_text(hjust = 0.5),
                                                       plot.subtitle = element_text(hjust = 0.5)) +
-                                                labs(title = "Histogram Of Happiness Score",
-                                                     x = "Happiness Score", y = "Count"))
-                   output$write1 = renderText("Histogram of Happiness Score for different Continent")
+                                                labs(title = "Histogram Of gdp_per_capita",
+                                                     x = "gdp_per_capita", y = "Count"))
+                   output$write1 = renderText("Histogram of gdp_per_capita for different Continent")
                  }
                  else if (input$var1 == 'family'){
                    output$chart1 = renderPlot(data %>%
@@ -318,9 +372,9 @@ server = function(input, output) {
                                                 theme(legend.position = "none",
                                                       plot.title = element_text(hjust = 0.5),
                                                       plot.subtitle = element_text(hjust = 0.5)) +
-                                                labs(title = "Histogram Of Happiness Score",
-                                                     x = "Happiness Score", y = "Count"))
-                   output$write1 = renderText("Histogram of Happiness Score for different Continent")
+                                                labs(title = "Histogram Of family",
+                                                     x = "family", y = "Count"))
+                   output$write1 = renderText("Histogram of family for different Continent")
                  }
                  else if (input$var1 == 'freedom'){
                    output$chart1 = renderPlot(data %>%
@@ -331,9 +385,9 @@ server = function(input, output) {
                                                 theme(legend.position = "none",
                                                       plot.title = element_text(hjust = 0.5),
                                                       plot.subtitle = element_text(hjust = 0.5)) +
-                                                labs(title = "Histogram Of Happiness Score",
-                                                     x = "Happiness Score", y = "Count"))
-                   output$write1 = renderText("Histogram of Happiness Score for different Continent")
+                                                labs(title = "Histogram Of freedom",
+                                                     x = "freedom", y = "Count"))
+                   output$write1 = renderText("Histogram of freedom for different Continent")
                  }
                  else if (input$var1 == 'health'){
                    output$chart1 = renderPlot(data %>%
@@ -344,9 +398,9 @@ server = function(input, output) {
                                                 theme(legend.position = "none",
                                                       plot.title = element_text(hjust = 0.5),
                                                       plot.subtitle = element_text(hjust = 0.5)) +
-                                                labs(title = "Histogram Of Happiness Score",
-                                                     x = "Happiness Score", y = "Count"))
-                   output$write1 = renderText("Histogram of Happiness Score for different Continent")
+                                                labs(title = "Histogram Of health",
+                                                     x = "health", y = "Count"))
+                   output$write1 = renderText("Histogram of health for different Continent")
                  }
                  else if (input$var1 == 'generosity'){
                    output$chart1 = renderPlot(data %>%
@@ -357,9 +411,9 @@ server = function(input, output) {
                                                 theme(legend.position = "none",
                                                       plot.title = element_text(hjust = 0.5),
                                                       plot.subtitle = element_text(hjust = 0.5)) +
-                                                labs(title = "Histogram Of Happiness Score",
-                                                     x = "Happiness Score", y = "Count"))
-                   output$write1 = renderText("Histogram of Happiness Score for different Continent")
+                                                labs(title = "Histogram Of generosity",
+                                                     x = "generosity", y = "Count"))
+                   output$write1 = renderText("Histogram of generosity for different Continent")
                  }
                  else if (input$var1 == 'government_trust'){
                    output$chart1 = renderPlot(data %>%
@@ -370,9 +424,9 @@ server = function(input, output) {
                                                 theme(legend.position = "none",
                                                       plot.title = element_text(hjust = 0.5),
                                                       plot.subtitle = element_text(hjust = 0.5)) +
-                                                labs(title = "Histogram Of Happiness Score",
-                                                     x = "Happiness Score", y = "Count"))
-                   output$write1 = renderText("Histogram of Happiness Score for different Continent")
+                                                labs(title = "Histogram Of government_trust",
+                                                     x = "government_trust", y = "Count"))
+                   output$write1 = renderText("Histogram of government_trust for different Continent")
                  }
                  else if (input$var1 == 'dystopia_residual'){
                    output$chart1 = renderPlot(data %>%
@@ -383,9 +437,9 @@ server = function(input, output) {
                                                 theme(legend.position = "none",
                                                       plot.title = element_text(hjust = 0.5),
                                                       plot.subtitle = element_text(hjust = 0.5)) +
-                                                labs(title = "Histogram Of Happiness Score",
-                                                     x = "Happiness Score", y = "Count"))
-                   output$write1 = renderText("Histogram of Happiness Score for different Continent")
+                                                labs(title = "Histogram Of dystopia_residual",
+                                                     x = "dystopia_residual", y = "Count"))
+                   output$write1 = renderText("Histogram of dystopia_residual for different Continent")
                  }})
                  output$chart2 = renderPlot({ var = data[ ,c(input$varx, input$vary)]
                                                data %>%
@@ -433,6 +487,8 @@ server = function(input, output) {
                    first(2020)
                  )
                })
+  output$write3 = renderText(" In this figure we see relationship between GDP per capita and Happiness score for top top 10
+countries with most GDP per capita each year for selected Year(s)")
   observeEvent(input$go5,
                if(input$column2 == "All"){
                  output$chart4 = renderPlot(
@@ -481,12 +537,228 @@ server = function(input, output) {
         ggplot(aes(change_in_happiness, Country, fill = Country)) +
         geom_col() +
         scale_x_continuous(labels = comma) +
-        labs(title = "Change in Happiness Score from 2015 to 2020",
+        labs(title = paste("Change in", input$variable, "from 2015 to 2020"),
              subtitle = "For Top 10 countries with most change",
-             x = "Change in Happiness Score") +
+             x = paste("Change in", input$variable)) +
         theme(plot.title = element_text(hjust = 0.5),
               plot.subtitle = element_text(hjust = 0.5))
     })
+    output$write5 = renderText("In this bar diagram we see the absolute change in the selected variable from 2015 to 2020 for top 10
+countries with most absolute change in that variable")
+    observeEvent(input$go7,
+                 if (input$cavar == "Year"){
+                   if (input$nuvar == "happiness_score"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(Year) %>% 
+                         summarise(meanhappy = mean(happiness_score)) %>% 
+                         ggplot(aes(Year, meanhappy, group = 1, col = Year)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by Year",
+                              y = "Mean Happiness Score") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "gdp_per_capita"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(Year) %>% 
+                         summarise(meanhappy = mean(gdp_per_capita)) %>% 
+                         ggplot(aes(Year, meanhappy, group = 1, col = Year)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by Year",
+                              y = "Mean gdp per Capita") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "family"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(Year) %>% 
+                         summarise(meanhappy = mean(family)) %>% 
+                         ggplot(aes(Year, meanhappy, group = 1, col = Year)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by Year",
+                              y = "Mean family") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "health"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(Year) %>% 
+                         summarise(meanhappy = mean(health)) %>% 
+                         ggplot(aes(Year, meanhappy, group = 1, col = Year)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by Year",
+                              y = "Mean health") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "freedom"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(Year) %>% 
+                         summarise(meanhappy = mean(freedom)) %>% 
+                         ggplot(aes(Year, meanhappy, group = 1, col = Year)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by Year",
+                              y = "Mean freedom") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "generosity"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(Year) %>% 
+                         summarise(meanhappy = mean(generosity)) %>% 
+                         ggplot(aes(Year, meanhappy, group = 1, col = Year)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by Year",
+                              y = "Mean generosity") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "government_trust"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(Year) %>% 
+                         summarise(meanhappy = mean(government_trust)) %>% 
+                         ggplot(aes(Year, meanhappy, group = 1, col = Year)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by Year",
+                              y = "Mean Government Trust") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "dystopia_residual"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(Year) %>% 
+                         summarise(meanhappy = mean(dystopia_residual)) %>% 
+                         ggplot(aes(Year, meanhappy, group = 1, col = Year)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by Year",
+                              y = "Mean dystopia_residual") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                 }
+                 else if (input$cavar == "continent"){
+                   if (input$nuvar == "happiness_score"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(continent) %>% 
+                         summarise(meanhappy = mean(happiness_score)) %>% 
+                         ggplot(aes(continent, meanhappy, group = 1, col = continent)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by continent",
+                              y = "Mean Happiness Score") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "gdp_per_capita"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(continent) %>% 
+                         summarise(meanhappy = mean(gdp_per_capita)) %>% 
+                         ggplot(aes(continent, meanhappy, group = 1, col = continent)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by continent",
+                              y = "Mean gdp per Capita") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "family"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(continent) %>% 
+                         summarise(meanhappy = mean(family)) %>% 
+                         ggplot(aes(continent, meanhappy, group = 1, col = continent)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by continent",
+                              y = "Mean family") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "health"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(continent) %>% 
+                         summarise(meanhappy = mean(health)) %>% 
+                         ggplot(aes(continent, meanhappy, group = 1, col = continent)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by continent",
+                              y = "Mean health") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "freedom"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(continent) %>% 
+                         summarise(meanhappy = mean(freedom)) %>% 
+                         ggplot(aes(continent, meanhappy, group = 1, col = continent)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by continent",
+                              y = "Mean freedom") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "generosity"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(continent) %>% 
+                         summarise(meanhappy = mean(generosity)) %>% 
+                         ggplot(aes(continent, meanhappy, group = 1, col = continent)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by continent",
+                              y = "Mean generosity") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "government_trust"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(continent) %>% 
+                         summarise(meanhappy = mean(government_trust)) %>% 
+                         ggplot(aes(continent, meanhappy, group = 1, col = continent)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by continent",
+                              y = "Mean Government Trust") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                   else if (input$nuvar == "dystopia_residual"){
+                     output$chart6 = renderPlot(
+                       data %>%
+                         group_by(continent) %>% 
+                         summarise(meanhappy = mean(dystopia_residual)) %>% 
+                         ggplot(aes(continent, meanhappy, group = 1, col = continent)) +
+                         geom_line() +
+                         theme(legend.position = "none") +
+                         labs(title = "Line Plot by continent",
+                              y = "Mean dystopia_residual") +
+                         theme(plot.title = element_text(hjust = 0.5))
+                     )
+                   }
+                 }
+                 )
     output$table<-renderTable({
       x=c("1. Country :","2. Happiness Score :","3. GDP per Capita :",
           "4. Family :", "5. Health :", "6. Freedom :","7. Generosity :",

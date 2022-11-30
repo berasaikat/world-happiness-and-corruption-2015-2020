@@ -9,6 +9,8 @@
 *.bib
 *.bcf
 *.blg
+*.io
+*.dcf
 *.bbl
 *.xml
 *.gz
@@ -18,3 +20,4 @@
 .Rproj.user
 *desktop.ini
 *.Rproj
+/Shiny/Data
