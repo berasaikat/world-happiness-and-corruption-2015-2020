@@ -4,8 +4,8 @@ subtitle: "Or are we too corrupt to be happy?"
 author: "Saikat Bera, MDS202228, saikatb@cmi.ac.in"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 urlcolor: blue
 ---
 
@@ -197,7 +197,8 @@ I would like to convey my heartfelt gratitude to my Professor [Dr. Sourish Das][
 #### **Conclusion :-**     
 In conclusion, I want to say that this is only a preliminary analysis of the [Data set][id1].      
 For a more detailed analysis see [Shiny Dashboard][id2].       
-You can also refer to the [YouTube video][id3] explaining the [Shiny Dashboard][id2].    
+You can also refer to the [YouTube video][id3] explaining the [Shiny Dashboard][id2].  
+   
 
 
 
