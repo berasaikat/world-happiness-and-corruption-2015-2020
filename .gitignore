@@ -17,6 +17,7 @@
 *.RData
 *.Rhistory
 *.tex
+*.mp4
 .Rproj.user
 *desktop.ini
 *.Rproj

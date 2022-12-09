@@ -4,8 +4,9 @@ subtitle: "Or are we too corrupt to be happy?"
 author: "Saikat Bera, MDS202228, saikatb@cmi.ac.in"
 date: "`r Sys.Date()`"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
+urlcolor: blue
 ---
 
 ### **Abstract :-** 
@@ -183,16 +184,21 @@ grid.arrange(first(2015), first(2016), first(2017),
 
 
 
-#### **Summary of Graphical Analysis :-**
-From figure-1 we see that for the continent of Africa the Happiness Scores are concentrated in lower end of the spectrum, at the same time European countries have Happiness scores at the higher end of the scale.
-From figure-2 we see the same thing that over the years, the mean happiness score for European and North American countries is much higher than for Asian or African countries.
-From the figure-3 we see that in countries like Afghanistan Happiness score reduces from 2015 to 2020 whereas countries like Benin and Guinea saw significant improvement in Happiness score from 2015 to 2020.
-From figure-4 we see Happiness score and GDP per capita have an almost linear relationship, and Happiness score and Government trust have a polynomial relationship with some outliers present.
+#### **Summary of Graphical Analysis :-**       
+- From figure-1 we see that for the continent of Africa the Happiness Scores are concentrated in lower end of the spectrum, at the same time European countries have Happiness scores at the higher end of the scale.
+- From figure-2 we see the same thing that over the years, the mean happiness score for European and North American countries is much higher than for Asian or African countries.
+- From the figure-3 we see that in countries like Afghanistan Happiness score reduces from 2015 to 2020 whereas countries like Benin and Guinea saw significant improvement in Happiness score from 2015 to 2020.
+- From figure-4 we see Happiness score and GDP per capita have an almost linear relationship, and Happiness score and Government trust have a polynomial relationship with some outliers present.
 
-#### **Conclusion :-**
-In conclusion, I want to say that this is only a preliminary analysis of the [Data set][id1]. I will perform a more detailed analysis using R Shiny in the future.   
+#### **Acknowledgement :-**     
+I would like to convey my heartfelt gratitude to my Professor [Dr. Sourish Das][id4] for his tremendous support and assistance in the completion of my project. It was a great learning experience.
 
-I would also like to thank professor Sourish Das for his guidance.
+
+#### **Conclusion :-**     
+In conclusion, I want to say that this is only a preliminary analysis of the [Data set][id1].      
+For a more detailed analysis see [Shiny Dashboard][id2].       
+You can also refer to the [YouTube video][id3] explaining the [Shiny Dashboard][id2].    
+
 
 
 
@@ -200,3 +206,6 @@ I would also like to thank professor Sourish Das for his guidance.
 [id]: https://www.kaggle.com/eliasturk
 [id0]: https://www.gallup.com/analytics/247355/gallup-world-happiness-report.aspx
 [id1]: https://www.kaggle.com/datasets/eliasturk/world-happiness-based-on-cpi-20152020
+[id2]: https://saikatbera.shinyapps.io/Shiny-World-Happiness-and-Corruption-2015-2020/
+[id3]: https://www.youtube.com/watch?v=8UX_z9flV2c
+[id4]: https://www.cmi.ac.in/~sourish/index.html
